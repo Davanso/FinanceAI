@@ -1,5 +1,18 @@
-const TransactionsPage = () => {
-  return <h1>Transaction pages</h1>;
+import { db } from "../_lib/prisma";
+import { DataTable } from "../_components/ui/data-table";
+import { TransactionColumns } from "./_colums";
+
+const TransactionsPage = async () => {
+  const transactions = await db.transaction.findMany({});
+  return (
+    <div className="space-y-6 p-6">
+      {/* TÍTULO E BOTÃO */}
+      <div className="flex w-full items-center justify-between">
+        <h1 className="text-2xl font-bold">Transações</h1>
+      </div>
+      <DataTable columns={TransactionColumns} data={transactions} />
+    </div>
+  );
 };
 
 export default TransactionsPage;
